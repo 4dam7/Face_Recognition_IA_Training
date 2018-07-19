@@ -10,13 +10,7 @@ def frame_formating(frame, face):
 
 def get_train_data(frame, face):
     objs = frame_formating(frame, face)
-    data = []
-    a = -1
-    for n in range(len(objs)):
-        objs.append([])
-        a += 1
-        for i in range(objs[n].shape[0]):
-            data.append([])
-            for j in range(objs[n].shape[1]):
-                data[a][i].append(objs[n][i][j])
+    data = []    
+    for elements in objs :
+        data.append(elements)
     return data
