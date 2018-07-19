@@ -1,5 +1,6 @@
 import sys
 from train_data import get_trained_data
+from save_data import save_data
 
 # detection of face + use of webcam
 import cv2
@@ -13,7 +14,7 @@ if len(sys.argv) != 2 :
 
 # preparing webcam
 cap = cv2.VideoCapture(0)
-face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
 # exit variable
 want_to_quit = 0
 # list of images
@@ -42,10 +43,5 @@ while not want_to_quit :
     if keyboard.is_pressed('q') :
         want_to_quit = 1
 
-for image in new_data :
-    for line in image :
-        print(line)
-    print()
-
-
-print("we got", len(new_data), "images :")
+save_data(new_data, sys.argv[1])
+print(sys.argv[1], "has been saved in the database !")
