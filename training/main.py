@@ -7,9 +7,11 @@ import cv2
 
 # Helper Librairies
 import numpy as np
+import keyboard
 
 # parsing of profils
 from parse_data import get_data
+from train_data import get_train_data
 
 train_images, train_labels, names = get_data()
 
@@ -32,14 +34,12 @@ model.compile(optimizer=tf.train.AdamOptimizer(),
 model.fit(train_images, train_labels, epochs=5)
 
 # preparing webcam
-#cap = cv2.VideoCapture(0)
-#face_cascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
+cap = cv2.VideoCapture(0)
+face_cascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
 # exit variable
 want_to_quit = 0
 
 predictions = model.predict(train_images)
-
-exit (0)
 
 while not want_to_quit :
     ret, frame = cap.read()
@@ -58,11 +58,15 @@ while not want_to_quit :
 
     if len(face) > 0 :
         # recup les personnes qui sont presentes
-        persons_seen = []
+        pictures = get_train_data(gray, face)
+        pictures = np.asarray(pictures) / 255.0
+
+        predictions = model.predict(pictures)
+
         print("Hello : ", end="")
-        for person in persons_seen :
-            if (person != "unknown") :
-                print(person, end=" ")
+        for person in predictions :
+                if max(person) > 0.6 :
+                    print(names[argmax(person)], end=" ")
         print()
 
     # quit
