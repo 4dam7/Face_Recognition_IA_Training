@@ -22,7 +22,6 @@ train_images = np.asarray(train_images) / 255.0
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
     keras.layers.Dense(128, activation=tf.nn.relu),
-    keras.layers.Dense(60, activation=tf.nn.relu),
     keras.layers.Dense(len(names), activation=tf.nn.softmax)
 ])
 
@@ -32,7 +31,7 @@ model.compile(optimizer=tf.train.AdamOptimizer(),
               metrics=['accuracy'])
 
 # training
-model.fit(train_images, train_labels, epochs=5)
+model.fit(train_images, train_labels, epochs=15)
 
 # preparing webcam
 cap = cv2.VideoCapture(0)
@@ -41,6 +40,7 @@ face_cascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
 want_to_quit = 0
 
 predictions = model.predict(train_images)
+
 
 while not want_to_quit :
     ret, frame = cap.read()
@@ -66,8 +66,8 @@ while not want_to_quit :
 
         print("Hello ", end="")
         for person in predictions :
-                if max(person) > 0.75 :
-                    print(names[np.argmax(person)], end=" ")
+                if max(person) > 0.998 :
+                    print(names[np.argmax(person)], str(max(person)), end=" ")
         print()
     # quit 
     if keyboard.is_pressed('q') :
