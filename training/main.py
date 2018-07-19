@@ -50,9 +50,11 @@ while not want_to_quit :
     if len(face) > 0 :
         # recup les personnes qui sont presentes
         persons_seen = []
+        print("Hello : ", end="")
         for person in persons_seen :
-            if (person != "unknown")
-        print("let's see who's here")
+            if (person != "unknown") :
+                print(person, end=" ")
+        print()
 
     # quit
     if keyboard.is_pressed('q') :
