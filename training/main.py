@@ -22,6 +22,7 @@ train_images = np.asarray(train_images) / 255.0
 model = keras.Sequential([
     keras.layers.Flatten(input_shape=(28, 28)),
     keras.layers.Dense(128, activation=tf.nn.relu),
+    keras.layers.Dense(60, activation=tf.nn.relu),
     keras.layers.Dense(len(names), activation=tf.nn.softmax)
 ])
 
@@ -65,10 +66,9 @@ while not want_to_quit :
 
         print("Hello ", end="")
         for person in predictions :
-                if max(person) > 0.6 :
+                if max(person) > 0.75 :
                     print(names[np.argmax(person)], end=" ")
         print()
-
-    # quit
+    # quit 
     if keyboard.is_pressed('q') :
         want_to_quit = 1
