@@ -5,9 +5,6 @@ import cv2
 
 cap = cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier('/home/acohen/Projet_Perso/openCV/haarcascade_xml/haarcascade_frontalface_default.xml')
-network = keras.Sequential(
-])
-
 
 def frame_formating(frame):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -23,7 +20,7 @@ def frame_formating(frame):
         return gray, 0
     return crop_img, 1
 
-def convert_to_data_arr(frame):
+def get_train_data(frame):
     obj, err = frame_formating(frame)
     if err == 0:
         return obj, 0
@@ -34,19 +31,3 @@ def convert_to_data_arr(frame):
         for j in range(obj.shape[1]):
             data[i].append(obj[i][j]) 
     return np.expand_dims(data, 0), 1
-
-while (True):
-    ret, frame = cap.read()
-    data, err = convert_to_data_arr(frame)            
-    if err == 0:
-        continue 
-    cv2.imshow('feed', frame)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-cap.release()
-cv2.destroyAllWindows()
-
-
-
-
-    
