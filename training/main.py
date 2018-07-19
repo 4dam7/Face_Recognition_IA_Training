@@ -8,8 +8,13 @@ import cv2
 # Helper Librairies
 import numpy as np
 
+# parsing of profils
+from parse_data import get_data
 
 train_images, train_labels, names = get_data()
+
+# normalization
+train_images = np.asarray(train_images) / 255.0
 
 # create a neural network
 model = keras.Sequential([
@@ -27,10 +32,14 @@ model.compile(optimizer=tf.train.AdamOptimizer(),
 model.fit(train_images, train_labels, epochs=5)
 
 # preparing webcam
-cap = cv2.VideoCapture(0)
-face_cascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
+#cap = cv2.VideoCapture(0)
+#face_cascade = cv2.CascadeClassifier('../haarcascade_frontalface_default.xml')
 # exit variable
 want_to_quit = 0
+
+predictions = model.predict(train_images)
+
+exit (0)
 
 while not want_to_quit :
     ret, frame = cap.read()
