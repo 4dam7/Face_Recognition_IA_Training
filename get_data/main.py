@@ -33,7 +33,7 @@ while not want_to_quit :
     
     # print cam
     cv2.imshow("cam", frame)
-    cv2.waitKey(1)
+    cv2.waitKey(10)
     
     # add an image into the list
     if keyboard.is_pressed(' ') and len(face) == 1 :

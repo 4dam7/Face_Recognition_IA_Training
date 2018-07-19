@@ -1,6 +1,6 @@
 def save_data(data, name) :
 
-    opened = open("../data/" + name + ".dt", "a+")
+    opened = open("../profils/" + name + ".dt", "a+")
     if not opened :
         return
     
