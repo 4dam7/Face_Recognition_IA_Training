@@ -63,7 +63,7 @@ while not want_to_quit :
 
         predictions = model.predict(pictures)
 
-        print("Hello : ", end="")
+        print("Hello ", end="")
         for person in predictions :
                 if max(person) > 0.6 :
                     print(names[argmax(person)], end=" ")
