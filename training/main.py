@@ -52,7 +52,7 @@ while not want_to_quit :
     # printing all squares around faces
     for (x, y, w, h) in face :
         cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 1)
-    
+
     # print cam
     cv2.imshow("cam", frame)
     cv2.waitKey(10)
@@ -66,9 +66,11 @@ while not want_to_quit :
 
         print("Hello ", end="")
         for person in predictions :
-                if max(person) > 0.998 :
-                    print(names[np.argmax(person)], str(max(person)), end=" ")
+                if max(person) > 0.99 :
+                    print(names[np.argmax(person)], end=" ")
         print()
-    # quit 
+    # quit
     if keyboard.is_pressed('q') :
         want_to_quit = 1
+cv2.destroyAllWindows()
+cap.release()
